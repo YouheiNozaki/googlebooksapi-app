@@ -3,15 +3,19 @@
   <main>
     <form>
       <input type="text" v-model="keyword" placeholder="search book" />
-      <button @click="getBooks">検索</button>
     </form>
+    <button @click="getBooks">検索</button>
+    <div v-for="book in books" :key="book.id">
+      {{ book.value }}
+    </div>
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import Header from "./components/Header.vue";
-import { Books } from "./types/book";
+import Header from "@/components/Header.vue";
+import { fetchBooks } from "@/api/fetchBook";
+import { Books } from "@/types/book";
 const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
@@ -21,7 +25,9 @@ export default defineComponent({
   },
   setup() {
     const books = ref<Books>({ books: [] });
-    const getBooks = async () => {};
+    const getBooks = async () => {
+      books.value = await fetchBooks<Books>(`${baseUrl}?q=vue`);
+    };
 
     onMounted(getBooks);
 
