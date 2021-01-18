@@ -1,18 +1,34 @@
 <template>
   <Header title="Book Searcher" />
-  <Form />
+  <main>
+    <form>
+      <input type="text" v-model="keyword" placeholder="search book" />
+      <button @click="getBooks">検索</button>
+    </form>
+  </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import Header from "./components/Header.vue";
-import Form from "./components/Form.vue";
+import { Books } from "./types/book";
+const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
   name: "App",
   components: {
     Header,
-    Form,
+  },
+  setup() {
+    const books = ref<Books>({ books: [] });
+    const getBooks = async () => {};
+
+    onMounted(getBooks);
+
+    return {
+      books,
+      getBooks,
+    };
   },
 });
 </script>
