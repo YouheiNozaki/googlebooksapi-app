@@ -3,10 +3,10 @@
   <main>
     <form>
       <input type="text" v-model="keyword" placeholder="search book" />
+      <button @click="getBooks">検索</button>
     </form>
-    <button @click="getBooks">検索</button>
     <div v-for="book in books" :key="book.id">
-      {{ book.value }}
+      {{ book.title }}
     </div>
   </main>
 </template>
@@ -26,7 +26,7 @@ export default defineComponent({
   setup() {
     const books = ref<Books>({ books: [] });
     const getBooks = async () => {
-      books.value = await fetchBooks<Books>(`${baseUrl}?q=vue`);
+      books.value = await fetchBooks<Books>(`${baseUrl}?q=vue.js`);
     };
 
     onMounted(getBooks);
