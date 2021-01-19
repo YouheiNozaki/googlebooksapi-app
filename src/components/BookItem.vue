@@ -1,22 +1,15 @@
 <template>
-  <section></section>
+  <section>
+    <div>{{ book.volumeInfo.title }}</div>
+  </section>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 import type { Book } from "@/types/book";
 
-export const BookItem = defineComponent({
+export default defineComponent({
   props: {
-    book: {
-      type: Object as PropType<Book>,
-    },
-  },
-  setup(props) {
-    const volumeInfo = computed(() => {
-      return props.book?.volumeInfo;
-    });
-
-    return { volumeInfo };
+    book: Object as PropType<Book>,
   },
 });
 </script>
