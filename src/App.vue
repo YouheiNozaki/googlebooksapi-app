@@ -12,29 +12,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, reactive } from "vue";
 import Header from "@/components/Header.vue";
-import { fetchBooks } from "@/api/fetchBook";
+import BookList from "@/components/BookList.vue";
 import { Books } from "@/types/book";
 const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
-  name: "App",
+  setup() {
+    const state = reactive<Books>({ books: [] });
+
+    const searchBook = () => {};
+
+    return { state, searchBook };
+  },
   components: {
     Header,
-  },
-  setup() {
-    const books = ref<Books>({ books: [] });
-    const getBooks = async () => {
-      books.value = await fetchBooks<Books>(`${baseUrl}?q=vue.js`);
-    };
-
-    onMounted(getBooks);
-
-    return {
-      books,
-      getBooks,
-    };
+    BookList,
   },
 });
 </script>
