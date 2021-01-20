@@ -1,13 +1,7 @@
 <template>
   <Header title="Book Searcher" />
   <main>
-    <form>
-      <input type="text" v-model="keyword" placeholder="search book" />
-      <button @click="getBooks">検索</button>
-    </form>
-    <div v-for="book in books" :key="book.id">
-      {{ book.title }}
-    </div>
+    <form></form>
   </main>
 </template>
 
@@ -16,15 +10,19 @@ import { defineComponent, reactive } from "vue";
 import Header from "@/components/Header.vue";
 import BookList from "@/components/BookList.vue";
 import { Books } from "@/types/book";
+import { fetchBooks } from "./api/fetchBook";
 const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
   setup() {
-    const state = reactive<Books>({ books: [] });
+    const Bookstate = reactive<Books>({ books: [] });
+    const searchState = reactive({ keyword: "" });
 
-    const searchBook = () => {};
+    const searchBook = () => {
+      return fetchBooks(`${baseUrl}?q=`);
+    };
 
-    return { state, searchBook };
+    return { Bookstate, searchState, searchBook };
   },
   components: {
     Header,
