@@ -1,8 +1,12 @@
 <template>
   <Header title="Book Searcher" />
-  <main>
-    <form></form>
-  </main>
+
+  <input type="text" @input="books.keyword" placeholder="検索" />
+  <button type="submit" @click="searchBook">検索</button>
+
+  <div>
+    <BookList :books="books" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,14 +19,13 @@ const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
   setup() {
-    const Bookstate = reactive<Books>({ books: [] });
-    const searchState = reactive({ keyword: "" });
+    const books = reactive({ books: [], keyword: "" });
 
     const searchBook = () => {
-      return fetchBooks(`${baseUrl}?q=`);
+      fetchBooks(`${baseUrl}?q=${books.keyword}`);
     };
 
-    return { Bookstate, searchState, searchBook };
+    return { books, searchBook };
   },
   components: {
     Header,
