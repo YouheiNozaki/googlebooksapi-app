@@ -21,7 +21,7 @@ export default defineComponent({
   setup() {
     const state = reactive({ books: [] as Book[], keyword: "" });
 
-    const searchBook = async () => {
+    const searchBook = () => {
       axios.get(`${baseUrl}?q=${state.keyword}`).then((response) => {
         console.log(response.data.items);
         state.books = response.data.items;
