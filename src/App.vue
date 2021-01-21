@@ -1,11 +1,11 @@
 <template>
   <Header title="Book Searcher" />
   <form @submit.prevent="searchBook">
-    <input type="text" @input="search.keyword" placeholder="検索" />
+    <input type="text" v-model="state.keyword" placeholder="検索" />
     <button type="submit">検索</button>
   </form>
   <div>
-    <BookList :books="books" />
+    <BookList :books="state.books" />
   </div>
 </template>
 
@@ -14,22 +14,21 @@ import { defineComponent, reactive } from "vue";
 import axios from "axios";
 import Header from "@/components/Header.vue";
 import BookList from "@/components/BookList.vue";
-import { Books } from "@/types/book";
+import { Book } from "@/types/book";
 const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
   setup() {
-    const books = reactive<Books>({ books: [] });
-    const search = reactive({ keyword: "" });
+    const state = reactive({ books: [] as Book[], keyword: "" });
 
     const searchBook = async () => {
-      axios.get(`${baseUrl}?q=${search.keyword}`).then((response) => {
+      axios.get(`${baseUrl}?q=${state.keyword}`).then((response) => {
         console.log(response.data.items);
-        books.books = response.data.items;
+        state.books = response.data.items;
       });
     };
 
-    return { books, search, searchBook };
+    return { state, searchBook };
   },
   components: {
     Header,
