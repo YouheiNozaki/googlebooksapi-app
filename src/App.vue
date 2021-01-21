@@ -1,9 +1,9 @@
 <template>
   <Header title="Book Searcher" />
-
-  <input type="text" @input="books.keyword" placeholder="検索" />
-  <button type="submit" @click="searchBook">検索</button>
-
+  <form @submit.prevent="searchBook">
+    <input type="text" @input="search.keyword" placeholder="検索" />
+    <button type="submit">検索</button>
+  </form>
   <div>
     <BookList :books="books" />
   </div>
@@ -11,21 +11,25 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
+import axios from "axios";
 import Header from "@/components/Header.vue";
 import BookList from "@/components/BookList.vue";
 import { Books } from "@/types/book";
-import { fetchBooks } from "./api/fetchBook";
 const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
   setup() {
-    const books = reactive({ books: [], keyword: "" });
+    const books = reactive<Books>({ books: [] });
+    const search = reactive({ keyword: "" });
 
-    const searchBook = () => {
-      fetchBooks(`${baseUrl}?q=${books.keyword}`);
+    const searchBook = async () => {
+      axios.get(`${baseUrl}?q=${search.keyword}`).then((response) => {
+        console.log(response.data.items);
+        books.books = response.data.items;
+      });
     };
 
-    return { books, searchBook };
+    return { books, search, searchBook };
   },
   components: {
     Header,

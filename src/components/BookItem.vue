@@ -1,18 +1,25 @@
 <template>
   <section>
-    <a :href="book?.volumeInfo.previewLink">
-      <div>{{ book?.volumeInfo.title }}</div>
-      <img :src="book?.volumeInfo.imageLinks.thumbnail" />
+    <a :href="volumeInfo.previewLink">
+      <div>{{ volumeInfo.title }}</div>
+      <img :src="volumeInfo.imageLinks.thumbnail" />
     </a>
   </section>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { computed, defineComponent, PropType } from "vue";
 import type { Book } from "@/types/book";
 
 export default defineComponent({
   props: {
     book: Object as PropType<Book>,
+  },
+  setup(props) {
+    const volumeInfo = computed(() => {
+      return props.book?.volumeInfo;
+    });
+
+    return { volumeInfo };
   },
 });
 </script>
