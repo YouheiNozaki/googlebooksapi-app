@@ -5,6 +5,7 @@
     <button type="submit">検索</button>
 
     <select name="order" v-model="state.orderBy" @change="searchBook">
+      <option disabled value="">選択してください</option>
       <option value="newest">新着順</option>
       <option value="relevance">関連順</option>
     </select>
