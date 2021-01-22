@@ -1,5 +1,5 @@
 <template>
-  <div class="book-list">
+  <div class="book-list" target="_blank">
     <BookItem v-for="book in books" :key="book.id" :book="book" />
   </div>
 </template>
