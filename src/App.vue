@@ -2,13 +2,14 @@
   <Header title="Book Searcher" />
   <main>
     <form @submit.prevent="searchBook">
-      <div class="is-flex m-2">
+      <div class="is-flex container is-max-desktop is-align-items-center p-2">
         <input
           class="input"
           type="text"
           v-model="state.keyword"
           placeholder="本を検索"
         />
+
         <button type="submit" class="button is-primary">検索</button>
 
         <div class="select is-primary">
