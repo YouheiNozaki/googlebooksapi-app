@@ -24,7 +24,11 @@
       </template>
       <div class="card-content">
         <h4 class="title">{{ book?.volumeInfo.title }}</h4>
-        <span v-for="(author, index) in book.volumeInfo.authors" :key="index">
+        <span
+          v-for="(author, index) in book.volumeInfo.authors"
+          :key="index"
+          class="subtitle"
+        >
           <em> {{ author }} </em>
         </span>
         <p>{{ book.volumeInfo.publishedDate }}</p>
