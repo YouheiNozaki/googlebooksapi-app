@@ -33,6 +33,7 @@ import axios from "axios";
 import Header from "@/components/Header.vue";
 import BookList from "@/components/BookList.vue";
 import { Book } from "@/types/book";
+
 const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
