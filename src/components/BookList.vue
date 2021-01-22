@@ -1,6 +1,11 @@
 <template>
-  <div class="book-list" target="_blank">
-    <BookItem v-for="book in books" :key="book.id" :book="book" />
+  <div class="columns is-multiline is-centered" target="_blank">
+    <BookItem
+      v-for="book in books"
+      :key="book.id"
+      :book="book"
+      class="column is-one-quarter"
+    />
   </div>
 </template>
 
