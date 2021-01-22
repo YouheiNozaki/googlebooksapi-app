@@ -1,18 +1,29 @@
 <template>
   <Header title="Book Searcher" />
-  <form @submit.prevent="searchBook">
-    <input type="text" v-model="state.keyword" placeholder="検索" />
-    <button type="submit">検索</button>
+  <main>
+    <form @submit.prevent="searchBook">
+      <div class="is-flex m-2">
+        <input
+          class="input"
+          type="text"
+          v-model="state.keyword"
+          placeholder="本を検索"
+        />
+        <button type="submit" class="button is-primary">検索</button>
 
-    <select name="order" v-model="state.orderBy" @change="searchBook">
-      <option disabled value="">選択してください</option>
-      <option value="newest">新着順</option>
-      <option value="relevance">関連順</option>
-    </select>
-  </form>
-  <div>
-    <BookList :books="state.books" />
-  </div>
+        <div class="select is-primary">
+          <select name="order" v-model="state.orderBy" @change="searchBook">
+            <option value="newest">新着順</option>
+            <option value="relevance">関連順</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <div>
+      <BookList :books="state.books" />
+    </div>
+  </main>
 </template>
 
 <script lang="ts">
@@ -49,4 +60,6 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style lang="scss">
+@import "../node_modules/bulma/css/bulma.css";
+</style>

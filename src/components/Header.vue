@@ -1,5 +1,9 @@
 <template>
-  <header>{{ title }}</header>
+  <header class="container m-6">
+    <h1 class="title has-text-centered">
+      {{ title }}
+    </h1>
+  </header>
 </template>
 
 <script lang="ts">
