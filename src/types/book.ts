@@ -3,7 +3,7 @@ export interface Book {
   volumeInfo: {
     title: string;
     authors: string[];
-    previewLink: string;
+    infoLink: string;
     publishedDate: string;
     description: string;
     imageLinks: {
