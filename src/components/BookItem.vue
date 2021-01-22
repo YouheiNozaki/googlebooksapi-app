@@ -1,8 +1,20 @@
 <template>
   <section>
     <a :href="book?.volumeInfo.infoLink">
-      <h2>{{ book?.volumeInfo.title }}</h2>
-      <img :src="book?.volumeInfo.imageLinks.thumbnail" />
+      <template v-if="book.volumeInfo.imageLinks">
+        <img
+          :src="book?.volumeInfo.imageLinks.thumbnail"
+          :alt="book.volumeInfo.title"
+        />
+      </template>
+      <template v-else>
+        <img
+          src="@/assets/img/noimage.png"
+          :alt="book.volumeInfo.title"
+          width="128"
+        />
+      </template>
+      <h4>{{ book?.volumeInfo.title }}</h4>
       <p>{{ book.volumeInfo.publishedDate }}</p>
       <span v-for="(author, index) in book.volumeInfo.authors" :key="index">
         <em> {{ author }} </em>
