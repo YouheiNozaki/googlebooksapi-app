@@ -42,8 +42,6 @@ export default defineComponent({
       books: [] as Book[],
       keyword: "",
       orderBy: "relevance",
-      // loading画面を作成するのに使用したい
-      loading: false,
     });
 
     const searchBook = async () => {
@@ -51,7 +49,6 @@ export default defineComponent({
       const response = await axios.get<Books>(
         `${baseUrl}?q=${state.keyword}&orderBy=${state.orderBy}`
       );
-
       state.books = response.data.items;
     };
 
