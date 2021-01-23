@@ -22,15 +22,19 @@
     </form>
 
     <div>
-      <BookList :books="state.books" />
+      <div v-if="!state.books || isLoading">
+        <Loading />
+      </div>
+      <BookList :books="state.books" v-else />
     </div>
   </main>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import axios from "axios";
 import Header from "@/components/Header.vue";
+import Loading from "@/components/Loading.vue";
 import BookList from "@/components/BookList.vue";
 import { Book, Books } from "@/types/book";
 
@@ -38,6 +42,7 @@ const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
 export default defineComponent({
   setup() {
+    const isLoading = ref(false);
     const state = reactive({
       books: [] as Book[],
       keyword: "",
@@ -45,18 +50,21 @@ export default defineComponent({
     });
 
     const searchBook = async () => {
+      isLoading.value = true;
       // useSearchを作って切り出した方が良い？
       const response = await axios.get<Books>(
         `${baseUrl}?q=${state.keyword}&orderBy=${state.orderBy}`
       );
-      state.books = response.data.items;
+      isLoading.value = false;
+      return (state.books = response.data.items);
     };
 
-    return { state, searchBook };
+    return { state, isLoading, searchBook };
   },
   components: {
     Header,
     BookList,
+    Loading,
   },
 });
 </script>
