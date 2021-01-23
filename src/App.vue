@@ -32,7 +32,7 @@ import { defineComponent, reactive } from "vue";
 import axios from "axios";
 import Header from "@/components/Header.vue";
 import BookList from "@/components/BookList.vue";
-import { Book } from "@/types/book";
+import { Book, Books } from "@/types/book";
 
 const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
 
@@ -47,9 +47,8 @@ export default defineComponent({
     });
 
     const searchBook = async () => {
-      // TODO:axiosのresponse.dataに型をつける
       // useSearchを作って切り出した方が良い？
-      const response = await axios.get(
+      const response = await axios.get<Books>(
         `${baseUrl}?q=${state.keyword}&orderBy=${state.orderBy}`
       );
 

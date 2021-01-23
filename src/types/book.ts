@@ -11,3 +11,7 @@ export interface Book {
     };
   };
 }
+
+export interface Books {
+  items: Book[];
+}
