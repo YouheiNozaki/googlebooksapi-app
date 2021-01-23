@@ -42,15 +42,18 @@ export default defineComponent({
       books: [] as Book[],
       keyword: "",
       orderBy: "relevance",
+      // loading画面を作成するのに使用したい
+      loading: false,
     });
 
-    const searchBook = () => {
+    const searchBook = async () => {
       // TODO:axiosのresponse.dataに型をつける
-      axios
-        .get(`${baseUrl}?q=${state.keyword}&orderBy=${state.orderBy}`)
-        .then((response) => {
-          state.books = response.data.items;
-        });
+      // useSearchを作って切り出した方が良い？
+      const response = await axios.get(
+        `${baseUrl}?q=${state.keyword}&orderBy=${state.orderBy}`
+      );
+
+      state.books = response.data.items;
     };
 
     return { state, searchBook };
